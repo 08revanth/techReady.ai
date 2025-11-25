@@ -1,12 +1,10 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom";
-
+import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <StrictMode>
+const root = createRoot(rootElement);
+
+// Removed <StrictMode> wrapper
+root.render(
     <App />
-  </StrictMode>,
-  rootElement
 );

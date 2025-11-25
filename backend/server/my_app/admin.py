@@ -1,12 +1,6 @@
 from django.contrib import admin
-from .models import Genre, Question,Report,Users
+from .models import Question, Report
 
-class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('question', 'genre')
-    list_filter = ('genre',)
-
-admin.site.register(Genre)
+# Register your models here so they show up in the Admin Panel
+admin.site.register(Question)
 admin.site.register(Report)
-admin.site.register(Users)
-admin.site.register(Question, QuestionAdmin)
-
