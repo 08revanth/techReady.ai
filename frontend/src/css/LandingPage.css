@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+
+/* Main Container */
+.landing-container {
+  height: 100vh;
+  width: 100vw;
+  background: #030005;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* --- LOGO STAGE --- */
+.logo-stage {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.animated-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 15px rgba(217, 70, 239, 0.6)); /* Neon Glow */
+}
+
+/* --- TEXT STAGE --- */
+.content-stage {
+  text-align: center;
+  z-index: 10;
+}
+
+.brand-title {
+  font-size: 6rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  perspective: 500px; /* For 3D text effect */
+}
+
+.brand-title span {
+  display: inline-block;
+}
+
+.dot { color: #d946ef; }
+.ai { color: #d946ef; text-shadow: 0 0 20px rgba(217, 70, 239, 0.5); }
+
+.brand-subtitle {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  color: #a1a1aa;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* --- BUTTON --- */
+.cta-wrapper {
+  margin-top: 4rem;
+}
+
+.enter-btn {
+  padding: 1.2rem 3.5rem;
+  font-size: 1.1rem;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.enter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(217, 70, 239, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.enter-btn:hover {
+  background: #d946ef;
+  border-color: #d946ef;
+  box-shadow: 0 0 40px rgba(217, 70, 239, 0.4);
+  transform: translateY(-3px);
+  color: #000;
+}
+
+.enter-btn:hover::before {
+  left: 100%;
+}
+
+/* --- BACKGROUND FX --- */
+.grid-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+  opacity: 0.4;
+  animation: float 10s infinite ease-in-out;
+}
+
+.orb-1 {
+  width: 500px; height: 500px;
+  background: #4c1d95;
+  top: -100px; left: -100px;
+}
+
+.orb-2 {
+  width: 400px; height: 400px;
+  background: #be185d;
+  bottom: -50px; right: -50px;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 50px); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .brand-title { font-size: 3.5rem; }
+  .brand-subtitle { font-size: 1rem; padding: 0 1rem; }
+  .logo-stage { width: 150px; height: 150px; }
+}

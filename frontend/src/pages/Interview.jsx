@@ -1,106 +1,127 @@
-import { React, useEffect } from 'react';
-import '../css/Interview.css';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { 
+  FaDatabase, 
+  FaServer, 
+  FaNetworkWired, 
+  FaCode, 
+  FaGlobe, 
+  FaCube, 
+  FaArrowRight
+} from 'react-icons/fa';
+import '../css/Interview.css';
+
 const Interview = () => {
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-
-  const navigate = useNavigate();
-
   const handleTakeInterview = (cardName) => {
+    // This logs to console so you can verify the click is happening
+    console.log("Button Clicked. Navigating to:", cardName); 
     navigate('/record', { state: { cardName: cardName } });
   };
 
+  const modules = [
+    {
+      id: 'dbms',
+      title: "Database Management",
+      icon: <FaDatabase />,
+      color: "purple",
+      desc: "Database Architecture, Design, Normalization, Transactions, Deadlocks, Indexes.",
+      tags: ["SQL", "ACID", "Indexing", "Normalization"]
+    },
+    {
+      id: 'os',
+      title: "Operating Systems",
+      icon: <FaServer />, 
+      color: "green",
+      desc: "Process Management, Memory, File Systems, Networking, Deadlocks.",
+      tags: ["Kernel", "Threads", "Scheduling", "Paging"]
+    },
+    {
+      id: 'cn',
+      title: "Computer Networks",
+      icon: <FaNetworkWired />,
+      color: "blue",
+      desc: "Network Models, Transmission, Routing, Security, Protocols.",
+      tags: ["TCP/IP", "OSI", "HTTP", "Routing"]
+    },
+    {
+      id: 'dsa',
+      title: "Data Structures & Algo",
+      icon: <FaCode />,
+      color: "pink",
+      desc: "Arrays, Linked Lists, Trees, Graphs, Sorting, Searching, DP, Complexity.",
+      tags: ["Algorithms", "Big-O", "Graphs", "Trees"]
+    },
+    {
+      id: 'web',
+      title: "Web Development",
+      icon: <FaGlobe />,
+      color: "cyan",
+      desc: "HTML/CSS, JS (ES6+), React/Angular, Node.js, Databases, Web Security.",
+      tags: ["Frontend", "Backend", "REST API", "React"]
+    },
+    {
+      id: 'oops',
+      title: "OOP Design",
+      icon: <FaCube />,
+      color: "orange",
+      desc: "Classes, Objects, Inheritance, Polymorphism, Encapsulation, Patterns.",
+      tags: ["SOLID", "Inheritance", "Polymorphism", "Classes"]
+    }
+  ];
+
   return (
-    <div className="interview-container">
-      <div className="card">
+    <div className="interview-wrapper">
+      {/* Background Elements - Now Optimized with Gradients & Pointer Events None */}
+      <div className="bg-glow top-right"></div>
+      <div className="bg-glow bottom-left"></div>
+      <div className="grid-overlay"></div>
 
-        <h2>Database Management Systems</h2>
-        <h3>Topics Covered</h3>
-        <ul>
+      <div className="interview-container">
+        <header className="page-header">
+          <div className="header-badge">SKILL ASSESSMENT</div>
+          <h1>Select Your <span className="highlight">Arena</span></h1>
+          <p>Choose a technical domain to begin your AI-powered mock interview.</p>
+        </header>
 
-          <li>Database Architecture</li>
-          <li>Database Design</li>
-          <li>Normalization</li>
-          <li>Transactions and Concurrency Control</li>
-          <li>Deadlocks</li>
-          <li>Indexes and Views</li>
-        </ul>
-        <button className="take-interview-button" onClick={() => handleTakeInterview('dbms')}>Take Interview</button>
+        <div className="modules-grid">
+          {modules.map((module, index) => (
+            <div key={index} className={`module-card ${module.color}-theme`}>
+              <div className="card-bg-gradient"></div>
+              
+              <div className="card-header">
+                <div className="icon-box">
+                  {module.icon}
+                </div>
+                <h2>{module.title}</h2>
+              </div>
+              
+              <div className="card-body">
+                <p className="description">{module.desc}</p>
+                <div className="tags-cloud">
+                  {module.tags.map((tag, i) => (
+                    <span key={i} className="tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="card-footer">
+                <button 
+                  className="start-btn" 
+                  onClick={() => handleTakeInterview(module.id)}
+                >
+                  Start Interview <FaArrowRight className="btn-icon"/>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-
-      <div className="card">
-        <h2>Operating Systems</h2>
-        <h3>Topics Covered</h3>
-        <ul>
-          <li>Introduction to Operating Systems</li>
-          <li>Process Management</li>
-          <li>Memory Management</li>
-          <li>File Systems</li>
-          <li>Networking</li>
-          <li>Deadlocks and recovery</li>
-        </ul>
-        <button className="take-interview-button" onClick={() => handleTakeInterview('os')}>Take Interview</button>
-      </div>
-      <div className="card">
-        <h2>Computer Networks</h2>
-        <h3>Topics Covered</h3>
-        <ul>
-          <li>Introduction to Computer Networks</li>
-          <li>Network Models</li>
-          <li>Transmission Media</li>
-          <li>Network Devices</li>
-          <li>Routing Algorithms</li>
-          <li>Network Security</li>
-        </ul>
-        <button className="take-interview-button" onClick={() => handleTakeInterview('cn')}>Take Interview</button>
-      </div>
-
-      <div className="card">
-        <h2>Data Structures and Algorithms</h2>
-        <h3>Topics Covered</h3>
-        <ul>
-          <li>Arrays and Linked Lists</li>
-          <li>Stacks and Queues</li>
-          <li>Trees and Graphs</li>
-          <li>Sorting and Searching</li>
-          <li>Dynamic Programming</li>
-          <li>Algorithm Analysis</li>
-        </ul>
-        <button className="take-interview-button" onClick={() => handleTakeInterview('dsa')}>Take Interview</button>
-      </div>
-
-      <div className="card">
-        <h2>Web Development</h2>
-        <h3>Topics Covered</h3>
-        <ul>
-          <li>HTML and CSS</li>
-          <li>JavaScript</li>
-          <li>Frontend Frameworks (React, Angular, Vue)</li>
-          <li>Backend Technologies (Node.js, Django, Flask)</li>
-          <li>Database Management</li>
-          <li>Web Security</li>
-        </ul>
-        <button className="take-interview-button" onClick={() => handleTakeInterview('web')}>Take Interview</button>
-      </div>
-
-      <div className="card">
-        <h2>Object Oriented Programming</h2>
-        <h3>Topics Covered</h3>
-        <ul>
-          <li>Classes and Objects</li>
-          <li>Inheritance and Polymorphism</li>
-          <li>Encapsulation and Abstraction</li>
-          <li>Interfaces and Abstract Classes</li>
-          <li>Design Patterns</li>
-          <li>Object-oriented Analysis and Design</li>
-        </ul>
-        <button className="take-interview-button" onClick={() => handleTakeInterview('oops')}>Take Interview</button>
-      </div>
-
     </div>
   );
 };

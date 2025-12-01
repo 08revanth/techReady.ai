@@ -1,76 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg-dark: #030005;
+  --text-main: #ffffff;
+  --text-muted: #a1a1aa;
+  
+  /* Neon Accents */
+  --neon-purple: #d946ef;
+  --neon-blue: #3b82f6;
+  --neon-green: #22c55e;
+  --neon-pink: #ec4899;
+  --neon-cyan: #06b6d4;
+  --neon-orange: #f97316;
+  
+  --card-bg: rgba(20, 20, 20, 0.6); /* Slightly darker for better contrast */
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+.interview-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-dark);
+  position: relative;
+  overflow-x: hidden;
+  padding: 8rem 2rem 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* --- OPTIMIZED BACKGROUND (Fixes Lag) --- */
+/* Instead of using filter: blur(), we use radial-gradient which is much faster */
+
+.bg-glow {
+  position: fixed; /* Fixed prevents repainting on scroll */
+  width: 800px; 
+  height: 800px;
+  z-index: 0;
+  pointer-events: none; /* CRITICAL: Allows clicks to pass through */
+}
+
+.top-right { 
+  top: -200px; 
+  right: -200px; 
+  background: radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, rgba(0,0,0,0) 70%);
+}
+
+.bottom-left { 
+  bottom: -200px; 
+  left: -200px; 
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+}
+
+.grid-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  z-index: 0;
+  pointer-events: none; /* CRITICAL: Allows clicks to pass through */
+}
+
+/* --- Layout --- */
 .interview-container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 20px;
-    padding: 20px;
-    text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 10; /* Ensures content is above background */
 }
 
-.interview-container .card {
-    width: 90%;
-    margin: auto;
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+.page-header {
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
-.interview-container .card h2 {
-    font-size: 24px;
-    margin-bottom: 1rem;
+.header-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  color: var(--neon-purple);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
 }
 
-.interview-container .card p {
-    margin-bottom: 1rem;
+.page-header h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.5rem;
+  color: var(--text-main);
+  margin: 0 0 1rem 0;
+  line-height: 1.1;
 }
 
-.interview-container .card h3 {
-    margin-bottom: 1rem;
+.highlight {
+  background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.interview-container .card ul {
-    margin: 0;
-    padding: 0;
+.page-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-
-.interview-container .card ul {
-    padding: 1rem;
-    border-radius: 8px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+/* --- Grid System --- */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2rem;
 }
 
-.interview-container .card ul li {
-    list-style-type: none;
-    background-color: white;
-    padding: .5rem;
-    border-radius: 8px;
-    height: 2rem;
-    margin-bottom: 1rem;
+/* --- Card Design --- */
+.module-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(10px); /* Keep this, but optimize usage */
 }
 
-.interview-container .take-interview-button {
-    align-self: center;
-    margin-top: 20px;
-    cursor: pointer;
-    width: 18rem;
-    height: 3.5rem;
-    padding: 1rem;
-    font-size: 1rem;
-    border-radius: .75rem;
-    box-shadow: none;
-    border: none;
-    color: white;
-    font-weight: bold;
-    background: purple;
-    margin-bottom: 1rem;
+.module-card:hover {
+  transform: translateY(-5px);
+  background: rgba(30, 30, 30, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-.interview-container .take-interview-button:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+/* Gradient Effect on Hover */
+.card-bg-gradient {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 5px;
+  background: linear-gradient(90deg, var(--theme-color), transparent);
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.module-card:hover .card-bg-gradient { opacity: 1; }
+
+/* Themes Mapping */
+.purple-theme { --theme-color: var(--neon-purple); }
+.green-theme { --theme-color: var(--neon-green); }
+.blue-theme { --theme-color: var(--neon-blue); }
+.pink-theme { --theme-color: var(--neon-pink); }
+.cyan-theme { --theme-color: var(--neon-cyan); }
+.orange-theme { --theme-color: var(--neon-orange); }
+
+/* Card Internals */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.icon-box {
+  width: 50px; height: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--theme-color);
+  transition: transform 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.module-card:hover .icon-box {
+  transform: rotate(10deg) scale(1.1);
+  background: var(--theme-color);
+  color: #000;
+}
+
+.card-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  margin: 0;
+  color: #fff;
+}
+
+.description {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  min-height: 48px; 
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Tags Cloud */
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 50px;
+  color: #a1a1aa;
+  transition: all 0.2s;
+}
+
+.module-card:hover .tag {
+  border-color: var(--theme-color);
+  color: #fff;
+}
+
+/* Footer & Button */
+.card-footer {
+  margin-top: auto;
+  position: relative;
+  z-index: 20; /* Ensure button is clickable */
+}
+
+.start-btn {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid var(--theme-color);
+  color: var(--theme-color);
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative; /* Needed for z-index to work */
+}
+
+.start-btn:hover {
+  background: var(--theme-color);
+  color: #000;
+  box-shadow: 0 0 20px var(--theme-color);
+}
+
+.btn-icon {
+  transition: transform 0.2s;
+}
+
+.start-btn:hover .btn-icon {
+  transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modules-grid { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 2.5rem; }
+  /* Remove glass effect on mobile to improve performance further */
+  .module-card { backdrop-filter: none; background: #111; }
 }

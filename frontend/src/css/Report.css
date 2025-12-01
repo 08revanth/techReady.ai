@@ -1,74 +1,179 @@
+/* Report.css */
+
+:root {
+  --bg-color: #030005;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --text-main: #ffffff;
+  --text-muted: #a1a1aa;
+  --primary-color: #d946ef; /* Neon Purple */
+  --primary-glow: 0 0 20px rgba(217, 70, 239, 0.4);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --success-color: #22c55e;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+}
+
 .report-container {
-  width: 90%;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background: #eee;
+  padding: 8rem 2rem 4rem; /* Clear fixed header */
+  max-width: 1000px;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
-.report-heading {
-  margin-top: -2rem;
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #8a2be2;
-
-}
-
-.report-data {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
-}
-
-.report-section {
-  min-height: 10rem;
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-}
-
-.rating-section {
-  position: relative;
-}
-
-.rating-graph {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+/* Header */
+.report-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  font-size: 24px;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.rating-graph span {
-  color: #8a2be2;
-
+.report-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  color: #fff;
+  margin: 0;
 }
 
-.feedback-section h3,
-.strengths-section h3,
-.model-answer-section h3 {
-  color: #8a2be2;
+/* Overall Score Card */
+.score-summary {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(217, 70, 239, 0.05);
+  border: 1px solid rgba(217, 70, 239, 0.2);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  margin-bottom: 3rem;
 }
 
+.score-badge {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1;
+}
 
-#save_report {
-  cursor: pointer;
-  margin-left: 70rem;
-  width: 10rem;
-  height: 3rem;
-  padding: 1rem;
-  font-size: 1rem;
-  border-radius: .75rem;
-  box-shadow: none;
+.score-badge span {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.score-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Question Cards */
+.question-report {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.question-report:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.q-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.q-title {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.q-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.4;
+  max-width: 85%;
+}
+
+.q-rating {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-weight: 800;
+  color: #fff;
+  border: 1px solid var(--border-color);
+}
+
+/* Grid Layout for Feedback */
+.feedback-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.feedback-item h4 {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.feedback-item p {
+  color: #ddd;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Save Button */
+.save-btn {
+  background: var(--primary-color);
+  color: #000;
+  font-weight: 700;
   border: none;
-  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: var(--primary-glow);
+}
 
-  background: purple;
+.save-btn:hover {
+  transform: translateY(-2px);
+  background: #e879f9;
+  box-shadow: 0 0 30px rgba(217, 70, 239, 0.6);
+}
+
+.save-btn.saved {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .feedback-grid { grid-template-columns: 1fr; }
+  .score-summary { flex-direction: column; text-align: center; gap: 1rem; }
 }

@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;600&display=swap');
+
+:root {
+  --bg-color: #030005;
+  --purple-glow: #d946ef;
+  --cyan-glow: #06b6d4;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --border-light: rgba(255, 255, 255, 0.1);
+}
+
+body { margin: 0; background: var(--bg-color); }
+
+.portal-container {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Vertically centers the content */
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  padding: 40px 20px;
+}
+
+/* --- Background Effects --- */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.25;
+  z-index: 0;
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.orb-purple {
+  width: 600px; height: 600px;
+  background: var(--purple-glow);
+  top: -10%; left: -10%;
+}
+
+.orb-cyan {
+  width: 500px; height: 500px;
+  background: var(--cyan-glow);
+  bottom: -10%; right: -10%;
+  animation-delay: -4s;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.25; }
+  50% { transform: scale(1.1); opacity: 0.15; }
+}
+
+.scan-line {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3) 50%);
+  background-size: 100% 4px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+/* --- Main Interface --- */
+.interface-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* --- Header --- */
+.main-header {
+  text-align: center;
+}
+
+.glitch-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+/* --- Pillars Grid (The core layout) --- */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  /* Make cards tall to fill space */
+  min-height: 450px; 
+}
+
+/* Card Styles */
+.pillar-card {
+  position: relative;
+  text-decoration: none;
+  background: var(--glass-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.pillar-content {
+  position: relative;
+  z-index: 2;
+  padding: 3.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* Icons */
+.icon-halo {
+  width: 80px; height: 80px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease;
+}
+
+.pillar-text h2 {
+  color: white;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+  line-height: 1;
+}
+
+.pillar-text p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Feature List */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Buttons */
+.cta-button {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+/* Theme Specifics: AI (Purple) */
+.ai-theme .icon-halo { color: var(--purple-glow); }
+.ai-theme .feature-list li svg { color: var(--purple-glow); }
+
+.ai-theme .cta-button {
+  background: rgba(217, 70, 239, 0.1);
+  color: var(--purple-glow);
+  border: 1px solid var(--purple-glow);
+}
+
+.ai-theme:hover {
+  border-color: var(--purple-glow);
+  transform: translateY(-8px);
+  box-shadow: 0 0 40px rgba(217, 70, 239, 0.2);
+}
+.ai-theme:hover .cta-button {
+  background: var(--purple-glow);
+  color: white;
+}
+
+/* Theme Specifics: Expert (Cyan) */
+.expert-theme .icon-halo { color: var(--cyan-glow); }
+.expert-theme .feature-list li svg { color: var(--cyan-glow); }
+
+.expert-theme .cta-button {
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--cyan-glow);
+  border: 1px solid var(--cyan-glow);
+}
+
+.expert-theme:hover {
+  border-color: var(--cyan-glow);
+  transform: translateY(-8px);
+  box-shadow: 0 0 40px rgba(6, 182, 212, 0.2);
+}
+.expert-theme:hover .cta-button {
+  background: var(--cyan-glow);
+  color: black;
+}
+
+/* Background Hover Fill */
+.hover-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 1;
+}
+.pillar-card:hover .hover-bg { opacity: 1; }
+
+/* --- Market Feed Bar --- */
+.market-feed-bar {
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  border-radius: 12px; /* Slight rounded corners */
+}
+
+.feed-label {
+  padding: 0 2rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-right: 1px solid var(--border-light);
+  height: 100%;
+}
+
+.live-dot {
+  width: 8px; height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ef4444;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0.5; } }
+
+.ticker-window {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: max-content;
+  animation: ticker 30s linear infinite;
+}
+
+.ticker-track:hover { animation-play-state: paused; }
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.ticker-item:hover { color: white; }
+
+.t-role { font-weight: 600; color: #e2e8f0; }
+.t-at { color: #64748b; margin: 0 5px; }
+.t-company { color: var(--cyan-glow); font-weight: 600; }
+.t-loc { margin-left: 5px; font-size: 0.8rem; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .pillars-grid { grid-template-columns: 1fr; }
+  .glitch-title { font-size: 2.5rem; }
+  .pillar-content { padding: 2rem; }
+  .market-feed-bar { display: none; /* Often cleaner to hide ticker on tiny screens */ }
+}
